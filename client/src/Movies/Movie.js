@@ -27,7 +27,12 @@ function Movie({ addToSavedList, setMovieList, movieList }) {
     event.preventDefault();
     axios.delete(`http://localhost:5000/api/movies/${movie.id}`)
       .then(res =>{
-        console.log(res)
+        setMovieList(movieList.filter(currentMovie =>{
+          if (currentMovie.id === movie.id) {
+            return !currentMovie
+          } else {return currentMovie}
+        }));
+        push('/');
       })
       .catch(error =>{
         console.log(error)
