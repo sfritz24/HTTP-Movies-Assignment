@@ -42,7 +42,12 @@ const UpdateForm = props =>{
         event.preventDefault();
         axios.put(`http://localhost:5000/api/movies/${movie.id}`, movie)
             .then(res =>{
-                props.setMovieList(res.data);
+                props.setMovieList(props.movieList.map(currentMovie =>{
+                    if (currentMovie.id === movie.id) {
+                        return res.data
+                    } else {return currentMovie};
+                }));
+                push('/');
             })
             .catch(error =>{
                 console.log(error)
